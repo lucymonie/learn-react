@@ -1,54 +1,54 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-class Main extends React.Component {
-  render () {
-    return (
-      <div>
-       <Time />
-       <h1>My to do list</h1>
-       <List />
-       <Button />
-      </div>
-    )
-  }
-}
 
 class List extends React.Component {
+  constructor () {
+    super();
+    this.state = {
+      name: 'Lucy'
+    }
+  }
+
   render () {
-    const autoListItems = ['Walk the dog', 'Eat a banana', 'Turn into a squirrel'];
+    let name;
+    if (this.state.name) {
+      name = this.state.name + "'s";
+    } else {
+      name = 'My';
+    }
+
     return (
       <div>
-       <ul className="list">
+        <h1>{name} to do list</h1>
+        <ListItems />
+        <Button />
+      </div>
+    )
+  }
+}
+
+const ListItems = props => {
+  const autoListItems = ['Walk the dog', 'Eat a banana', 'Turn into a squirrel'];
+  return (
+    <div>
+      <ul className="list">
         {autoListItems.map( listItem => <li>{listItem}</li> )}
-       </ul>
-      </div>
-    )
-  }
+      </ul>
+    </div>
+  );
 }
 
-class Button extends React.Component {
-  render () {
-    return (
-      <div>
-       <button>Add new list item</button>
-      </div>
-    )
-  }
-}
 
-class Time extends React.Component {
-  render () {
-    const now = new Date();
-    return (
-      <div>
-        <p>Current time: {now.toTimeString().slice(0,5)}</p>
-      </div>
-    )
-  }
-}
+
+
+const Button = props => (
+  <div>
+   <button>Add new</button>
+  </div>
+)
 
 
 
 const app = document.getElementById('app')
-ReactDOM.render(<Main />, app)
+ReactDOM.render(<List />, app)
