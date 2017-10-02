@@ -1,5 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import FaTimesCircle from 'react-icons/lib/fa/times-circle'
+import FaPencil from 'react-icons/lib/fa/pencil'
+import FaCheckCircle from 'react-icons/lib/fa/check-circle'
+import './index.css'
 
 
 class List extends React.Component {
@@ -19,7 +23,7 @@ class List extends React.Component {
     }
 
     return (
-      <div>
+      <div className="container">
         <h1>{name} to do list</h1>
         <ListItems />
         <Button />
@@ -28,12 +32,30 @@ class List extends React.Component {
   }
 }
 
+class Delete extends React.Component {
+  render() {
+    return <span className="icon"><FaTimesCircle /></span>
+  }
+}
+
+class Edit extends React.Component {
+  render() {
+    return <span className="icon"><FaPencil /></span>
+  }
+}
+
+class Done extends React.Component {
+  render() {
+    return <span className="icon"><FaCheckCircle /></span>
+  }
+}
+
 const ListItems = props => {
   const autoListItems = ['Walk the dog', 'Eat a banana', 'Turn into a squirrel'];
   return (
     <div>
       <ul className="list">
-        {autoListItems.map( listItem => <li>{listItem}</li> )}
+        {autoListItems.map( listItem => <li>{listItem} <Edit /> <Done /> <Delete /></li> )}
       </ul>
     </div>
   );
@@ -50,5 +72,5 @@ const Button = props => (
 
 
 
-const app = document.getElementById('app')
+const app = document.getElementById('app');
 ReactDOM.render(<List />, app)
