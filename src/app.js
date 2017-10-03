@@ -3,34 +3,58 @@ import ReactDOM from 'react-dom'
 import FaTimesCircle from 'react-icons/lib/fa/times-circle'
 import FaPencil from 'react-icons/lib/fa/pencil'
 import FaCheckCircle from 'react-icons/lib/fa/check-circle'
-import './index.css'
+import css from './index.css'
 
 
 class List extends React.Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
-      name: 'Lucy'
+      inputText: '',
+      listItems: ['Walk the dog', 'Eat a banana', 'Turn into a squirrel'],
     }
   }
 
-  render () {
-    let name;
-    if (this.state.name) {
-      name = this.state.name + "'s";
-    } else {
-      name = 'My';
-    }
+  onChange (e) {
+    this.setState({inputText: e.target.value});
+  }
 
+  onSubmit (e) {
+    e.preventDefault();
+    const newListItems = [...this.state.listItems, this.state.inputText];
+    this.setState({
+      inputText: '',
+      listItems: newListItems
+    });
+
+  }
+
+  render () {
     return (
       <div className="container">
-        <h1>{name} to do list</h1>
-        <ListItems />
-        <Button />
+        <h1>My to do list</h1>
+        <ListItems items={this.state.listItems}/>
+        <form onSubmit={this.onSubmit.bind(this)}>
+          <input value={this.state.inputText} onChange={this.onChange.bind(this)} />
+          <button>
+           Add new
+          </button>
+       </form>
       </div>
     )
   }
 }
+
+const ListItems = props => {
+  return (
+    <ul>
+      {props.items.map((item, index) =>
+        <li key={index}>{item} <Delete /></li>)
+      }
+    </ul>
+  )
+}
+
 
 class Delete extends React.Component {
   render() {
@@ -49,27 +73,6 @@ class Done extends React.Component {
     return <span className="icon"><FaCheckCircle /></span>
   }
 }
-
-const ListItems = props => {
-  const autoListItems = ['Walk the dog', 'Eat a banana', 'Turn into a squirrel'];
-  return (
-    <div>
-      <ul className="list">
-        {autoListItems.map( listItem => <li>{listItem} <Edit /> <Done /> <Delete /></li> )}
-      </ul>
-    </div>
-  );
-}
-
-
-
-
-const Button = props => (
-  <div>
-   <button>Add new</button>
-  </div>
-)
-
 
 
 const app = document.getElementById('app');

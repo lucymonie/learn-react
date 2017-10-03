@@ -2,10 +2,31 @@ body {
   padding: 5rem;
 }
 
+ul {
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  border-bottom: solid lightgrey 1px;
+  list-style: none;
+}
+
+input {
+  margin-right: 5px;
+}
+
 .container {
   width: 300px;
 }
 
 .icon {
   padding-left: 5px;
+  display: inline-block;
+  float:right;
+}
+
+.icon:hover {
+  cursor: pointer;
 }
